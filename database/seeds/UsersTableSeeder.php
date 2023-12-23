@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
             'sex'=>'1',
             'birth_day'=>'2003_10_12',
             'role'=>'1',
-            'password'=>'satoutarou20031012',
+            'password'=>bcrypt('satoutarou20031012'),
             'remember_token'=>'123456',]
         ]);
 
