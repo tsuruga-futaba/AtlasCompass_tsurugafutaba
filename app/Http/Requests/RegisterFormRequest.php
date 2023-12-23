@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Users\User;
+use App\Providers\CustomServiceProvider;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterFormRequest extends FormRequest
