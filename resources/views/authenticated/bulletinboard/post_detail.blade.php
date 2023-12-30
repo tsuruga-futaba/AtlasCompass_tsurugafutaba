@@ -1,5 +1,16 @@
 @extends('layouts.sidebar')
 @section('content')
+  <!--バリデーションエラーメッセージ-->
+<div class=post-wrapper>
+@if($errors->any())
+  <div class="post_error">
+    <ul>
+@foreach($errors->all() as $error)
+      <li>{{$error}}</li>
+@endforeach
+    </ul>
+  </div>
+    @endif
 <div class="vh-100 d-flex">
   <div class="w-50 mt-5">
     <div class="m-3 detail_container">
@@ -8,8 +19,10 @@
           <div>
           </div>
           <div>
+            @if(Auth::user()->id ==$post->user_id)
             <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-            <a href="{{ route('post.delete', ['id' => $post->id]) }}">削除</a>
+            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('この投稿を削除します。よろしいですか？')">削除</a>
+            @endif
           </div>
         </div>
 
