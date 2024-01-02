@@ -21,6 +21,8 @@ class PostsController extends Controller
         $categories = MainCategory::get();
         $like = new Like;
         $post_comment = new Post;
+        $post_id = Post::where('id')->get();
+        $like_counts = $like->likeCounts($post_id);
         if(!empty($request->keyword)){
             $posts = Post::with('user', 'postComments')
             ->where('post_title', 'like', '%'.$request->keyword.'%')
@@ -36,7 +38,7 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
             ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment','like_counts'));
     }
 
     public function postDetail($post_id){
@@ -102,6 +104,7 @@ class PostsController extends Controller
         $post_id = $request->post_id;
 
         $like = new Like;
+        // $like_count = $like->likeCounts($post_id);
 
         $like->like_user_id = $user_id;
         $like->like_post_id = $post_id;
