@@ -12,6 +12,7 @@ use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
 use App\Http\Requests\PostEditFormRequest;
+use App\Http\Requests\PostCommentRequest;
 use Auth;
 
 class PostsController extends Controller
@@ -20,9 +21,13 @@ class PostsController extends Controller
         $posts = Post::with('user', 'postComments')->get();
         $categories = MainCategory::get();
         $like = new Like;
+        // dd($like);
         $post_comment = new Post;
-        $post_id = Post::where('id')->get();
-        $like_counts = $like->likeCounts($post_id);
+        // $comment_counts = $post_comment->commentCounts($posts->id);
+        // $post_id = Post::with('like')->where('id')->get();
+        // dd($post_id);
+        // $like_counts = $like->likeCounts($post_id);
+        // dd($like_counts);
         if(!empty($request->keyword)){
             $posts = Post::with('user', 'postComments')
             ->where('post_title', 'like', '%'.$request->keyword.'%')
@@ -38,7 +43,7 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
             ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment','like_counts'));
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
     }
 
     public function postDetail($post_id){
@@ -77,7 +82,7 @@ class PostsController extends Controller
         return redirect()->route('post.input');
     }
 
-    public function commentCreate(Request $request){
+    public function commentCreate(PostCommentRequest $request){
         PostComment::create([
             'post_id' => $request->post_id,
             'user_id' => Auth::id(),
