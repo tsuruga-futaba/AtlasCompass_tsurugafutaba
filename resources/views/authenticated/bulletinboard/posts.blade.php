@@ -19,7 +19,6 @@
             @else
             <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
             @endif
-            {{$post->post_comment()->post_id()->count()}}
           </div>
         </div>
       </div>

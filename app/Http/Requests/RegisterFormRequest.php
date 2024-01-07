@@ -28,6 +28,23 @@ class RegisterFormRequest extends FormRequest
         return true;
     }
 
+        public function getValidatorInstance()
+    {
+        // プルダウンで選択された値(= 配列)を取得
+        $data = $this->input('old_year').'-'.$this->input('old_month').'-'.$this->input('old_day');
+        // $birth_day=date('Y-m-d', strtotime($data));
+
+        // // 日付を作成(ex. 2020-1-20)
+        // $birth_day_validation = implode('-', $birth_day);
+
+        // rules()に渡す値を追加でセット
+        //     これで、この場で作った変数にもバリデーションを設定できるようになる
+        $this->merge([
+            'birth_day' => $data,
+        ]);
+
+        return parent::getValidatorInstance();
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -44,7 +61,7 @@ class RegisterFormRequest extends FormRequest
                 'old_year'=>'required',
                 'old_month'=>'required',
                 'old_day'=>'required',
-                'birth_day'=>'required|date|after:2000-01-01|before:today',
+                'birth_day'=>'date|after:2000-01-01|before:today',
                 'role'=>'required|in:1,2,3,4',
                 'password'=>'required|between:8,30|confirmed',
             ];
@@ -63,11 +80,13 @@ class RegisterFormRequest extends FormRequest
             'under_name_kana.katakana'=>'メイはカタカナで入力してください。',
             'mail_address.required'=>'メールアドレスは入力必須です。',
             'mail_address.email'=>'メールアドレスを正しく入力してください。',
-            'mail_address.unique:users,mail_address'=>'こちらのメールアドレスはすでに使用されています',
+            'mail_address.unique:users'=>'こちらのメールアドレスはすでに使用されています',
             'mail_address.max:100'=>'メールアドレスは100文字以下で入力してください。',
             'sex.required'=>'性別は入力必須です。',
             'birth_day.required'=>'生年月日は入力必須です。',
             'birth_day.before:today'=>'生年月日を正しく入力してください。',
+            'birth_day.date'=>'生年月日を正しく入力してください。',
+            'birth_day.after:2000-01-01'=>'生年月日は２０００年以降で入力してください。',
             'role.required'=>'役職は入力必須です。',
             'password.required'=>'パスワードは入力必須です。',
             'password.between'=>'パスワードは8文字以上30文字以下で入力してください。',
