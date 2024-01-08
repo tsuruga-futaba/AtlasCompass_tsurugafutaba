@@ -25,7 +25,7 @@ class Post extends Model
 
     public function likes()
     {
-        return $this->hasMany('App\Models\like');
+        return $this->hasMany('App\Models\Posts\Like','like_post_id');
     }
 
     public function subCategories(){
