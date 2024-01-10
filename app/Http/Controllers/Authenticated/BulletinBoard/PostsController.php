@@ -24,10 +24,10 @@ class PostsController extends Controller
         // dd($like);
         $post_comment = new Post;
         // $comment_counts = $post_comment->commentCounts($posts->id);
-        $post_id = Post::with('likes')->where('like_post_id')->get();
-        // dd($post_id);
+        $post_id = Post::where('id')->get();
+        dd($post_id);
         $like_counts = $like->likeCounts($post_id);
-        dd($like_counts);
+        // dd($like_counts);
         if(!empty($request->keyword)){
             $posts = Post::with('user', 'postComments')
             ->where('post_title', 'like', '%'.$request->keyword.'%')
