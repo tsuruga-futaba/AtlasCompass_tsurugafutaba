@@ -61,7 +61,7 @@ class RegisterFormRequest extends FormRequest
                 'old_year'=>'required',
                 'old_month'=>'required',
                 'old_day'=>'required',
-                'birth_day'=>'date|after:2000-01-01|before:today',
+                'birth_day'=>'date|after:1999-12-31|before:today',
                 'role'=>'required|in:1,2,3,4',
                 'password'=>'required|between:8,30|confirmed',
             ];
@@ -80,7 +80,7 @@ class RegisterFormRequest extends FormRequest
             'under_name_kana.katakana'=>'メイはカタカナで入力してください。',
             'mail_address.required'=>'メールアドレスは入力必須です。',
             'mail_address.email'=>'メールアドレスを正しく入力してください。',
-            'mail_address.unique:users'=>'こちらのメールアドレスはすでに使用されています',
+            'mail_address.unique'=>'こちらのメールアドレスはすでに使用されています',
             'mail_address.max'=>'メールアドレスは100文字以下で入力してください。',
             'sex.required'=>'性別は入力必須です。',
             'birth_day.required'=>'生年月日は入力必須です。',
