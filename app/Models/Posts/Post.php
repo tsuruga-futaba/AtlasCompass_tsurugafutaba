@@ -33,7 +33,8 @@ class Post extends Model
     }
 
     // コメント数
-    public function commentCounts($post_id){
-        return Post::with('postComments')->find($post_id)->postComments();
+    public static function commentCounts($post_id){
+        // return Post::with('postComments')->find($post_id)->postComments();
+        return Post::find($post_id)->postComments->count();
     }
 }

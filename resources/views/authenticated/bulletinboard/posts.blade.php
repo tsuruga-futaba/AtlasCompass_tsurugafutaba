@@ -19,7 +19,8 @@
             @else
             <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
             @endif
-              <p>いいね数{{ \App\Models\Posts\Like::likeCounts($post->id) }}</p>
+              <p>いいね数 {{ \App\Models\Posts\Like::likeCounts($post->id) }}</p>
+              <p>コメント数 {{\App\Models\Posts\Post::commentCounts($post->id)}}</p>
           </div>
         </div>
       </div>
