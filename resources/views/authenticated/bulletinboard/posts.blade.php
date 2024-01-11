@@ -19,13 +19,7 @@
             @else
             <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
             @endif
-            @foreach($like_counts as $like_count)
-            @if($like_count != null)
-            <p>いいね数{{$like_count($post->id)}}</p>
-            @else
-            <p>いいね数0</p>
-            @endif
-            @endforeach
+              <p>いいね数{{ \App\Models\Posts\Like::likeCounts($post->id) }}</p>
           </div>
         </div>
       </div>

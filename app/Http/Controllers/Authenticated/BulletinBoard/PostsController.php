@@ -21,13 +21,8 @@ class PostsController extends Controller
         $posts = Post::with('user', 'postComments')->get();
         $categories = MainCategory::get();
         $like = new Like;
-        // dd($like);
         $post_comment = new Post;
-        // $comment_counts = $post_comment->commentCounts($posts->id);
-        $post_id = Post::where('id')->get();
-        dd($post_id);
-        $like_counts = $like->likeCounts($post_id);
-        // dd($like_counts);
+        // $like_count=$like->likeCounts($post_id);
         if(!empty($request->keyword)){
             $posts = Post::with('user', 'postComments')
             ->where('post_title', 'like', '%'.$request->keyword.'%')
