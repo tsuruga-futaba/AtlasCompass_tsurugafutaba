@@ -77,6 +77,14 @@ class PostsController extends Controller
         return redirect()->route('post.input');
     }
 
+    public function subCategoryCreate(Request $request){
+        SubCategory::create([
+            'sub_category' => $request->sub_category_name,]);
+        MainCategory::where('id', );
+        // main_category_nameと同一のレコードをもつIDを取得し、main_category_idとして取得したい。
+        return redirect()->route('post.input');
+    }
+
     public function commentCreate(PostCommentRequest $request){
         PostComment::create([
             'post_id' => $request->post_id,
