@@ -13,6 +13,9 @@ use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
 use App\Http\Requests\PostEditFormRequest;
 use App\Http\Requests\PostCommentRequest;
+use App\Http\Requests\MainCategoryRequest;
+use App\Http\Requests\SubCategoryRequest;
+use App\PostSubCategory;
 use Auth;
 
 class PostsController extends Controller
@@ -47,16 +50,23 @@ class PostsController extends Controller
     }
 
     public function postInput(){
-        $main_categories = MainCategory::get();
+        $main_categories = MainCategory::with('subCategories')->get();
+        // dd($main_categories);
         return view('authenticated.bulletinboard.post_create', compact('main_categories'));
     }
 
     public function postCreate(PostFormRequest $request){
-        $post = Post::create([
+        $posts = Post::create([
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
-            'post' => $request->post_body
+            'post' => $request->post_body,
         ]);
+
+        PostSubCategory::create([
+            'post_id' =>$posts->id,
+            'sub_category_id' => $request->post_category_id
+        ]);
+
         return redirect()->route('post.show');
     }
 
@@ -72,15 +82,15 @@ class PostsController extends Controller
         Post::findOrFail($id)->delete();
         return redirect()->route('post.show');
     }
-    public function mainCategoryCreate(Request $request){
+    public function mainCategoryCreate(MainCategoryRequest $request){
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input');
     }
 
-    public function subCategoryCreate(Request $request){
+    public function subCategoryCreate(SubCategoryRequest $request){
         SubCategory::create([
-            'sub_category' => $request->sub_category_name,]);
-        MainCategory::where('id', );
+            'sub_category' => $request->sub_category_name,
+            'main_category_id' => $request->main_category_id]);
         // main_category_nameと同一のレコードをもつIDを取得し、main_category_idとして取得したい。
         return redirect()->route('post.input');
     }
