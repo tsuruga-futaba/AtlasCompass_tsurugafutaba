@@ -22,7 +22,7 @@ class PostsController extends Controller
 {
     public function show(Request $request){
         $posts = Post::with('user', 'postComments')->get();
-        $categories = MainCategory::get();
+        $categories =  MainCategory::with('subCategories')->get();
         $like = new Like;
         $post_comment = new Post;
         // $like_count=$like->likeCounts($post_id);
@@ -61,7 +61,7 @@ class PostsController extends Controller
             'post_title' => $request->post_title,
             'post' => $request->post_body,
         ]);
-
+        //多対多の場合はDBを分けて表記する必要がある。
         PostSubCategory::create([
             'post_id' =>$posts->id,
             'sub_category_id' => $request->post_category_id
@@ -77,7 +77,6 @@ class PostsController extends Controller
         ]);
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
-
     public function postDelete($id){
         Post::findOrFail($id)->delete();
         return redirect()->route('post.show');
@@ -104,17 +103,28 @@ class PostsController extends Controller
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
 
+//自分の投稿一覧
     public function myBulletinBoard(){
         $posts = Auth::user()->posts()->get();
         $like = new Like;
         return view('authenticated.bulletinboard.post_myself', compact('posts', 'like'));
     }
 
+    //いいねした投稿一覧
     public function likeBulletinBoard(){
         $like_post_id = Like::with('users')->where('like_user_id', Auth::id())->get('like_post_id')->toArray();
         $posts = Post::with('user')->whereIn('id', $like_post_id)->get();
         $like = new Like;
         return view('authenticated.bulletinboard.post_like', compact('posts', 'like'));
+    }
+
+    //サブカテゴリーごとの投稿一覧
+    public function subCategoryBulletinBoard(Request $request){
+        $sub_category = SubCategory::where('id', $request->sub_category_id)->get();
+        dd($sub_category);
+        $posts = PostSubCategory::with('subCategories')->where('sub_category_id', $sub_category)->get();
+        // dd($posts);
+        return view('authenticated.bulletinboard.post_subcategory',compact('sub_category','posts'));
     }
 
     public function postLike(Request $request){

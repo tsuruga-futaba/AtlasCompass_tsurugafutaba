@@ -35,12 +35,21 @@
       <input type="submit" name="like_posts" class="category_btn" value="いいねした投稿" form="postSearchRequest">
       <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
       <ul>
-        @foreach($categories as $category)
+      @foreach($categories as $category)
         <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
+        <!-- サブカテゴリー一覧の追加 -->
+      @if(isset($category->subCategories))
+        @foreach($category->subCategories as $sub_category)
+          <input type="submit" value="{{$sub_category->sub_category}}" name="sub_category_name" form="subCategoryRequest">
+          <input type="hidden" value="{{$sub_category->id}}" name="sub_category_id" form="subCategoryRequest">
+            <!-- サブカテゴリー -->
+  <form action="{{ route('sub.category.bulletin.board') }}" method="post" id="subCategoryRequest">@csrf</form>
         @endforeach
+      @endif
+      @endforeach
       </ul>
     </div>
   </div>
-  <form action="{{ route('post.show') }}" method="get" id="postSearchRequest"></form>
+  <form action="{{ route('post.show') }}" method="get" id="postSearchRequest">@csrf</form>
 </div>
 @endsection
