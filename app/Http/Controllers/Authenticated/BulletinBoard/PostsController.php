@@ -120,11 +120,15 @@ class PostsController extends Controller
 
     //サブカテゴリーごとの投稿一覧
     public function subCategoryBulletinBoard(Request $request){
-        $sub_category = SubCategory::where('id', $request->sub_category_id)->get();
-        dd($sub_category);
-        $posts = PostSubCategory::with('subCategories')->where('sub_category_id', $sub_category)->get();
+        // dd($request);
+        $sub_category = SubCategory::where('sub_category', $request->sub_category_name)->first();
+        // dd($sub_category);
+        $post_id = PostSubCategory::where('sub_category_id', $sub_category->id)->pluck('post_id');
+        // dd($post_id);
+        $posts = Post::with('user')->whereIn('id', $post_id)->get();
         // dd($posts);
-        return view('authenticated.bulletinboard.post_subcategory',compact('sub_category','posts'));
+        $like = new Like;
+        return view('authenticated.bulletinboard.post_subcategory',compact('sub_category','posts','like'));
     }
 
     public function postLike(Request $request){

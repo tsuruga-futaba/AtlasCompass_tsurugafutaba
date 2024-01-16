@@ -11,6 +11,8 @@ class SubCategory extends Model
     protected $fillable = [
         'main_category_id',
         'sub_category',
+        'sub_category_id',
+        'post_id'
     ];
     public function mainCategory(){
         // リレーションの定義
