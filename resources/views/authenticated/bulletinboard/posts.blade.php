@@ -3,6 +3,7 @@
 @section('content')
 <div class="board_area w-100 border m-auto d-flex">
   <div class="post_view w-75 mt-5">
+    @if(!isset($sub_category_name))
     <p class="w-75 m-auto">投稿一覧</p>
     @foreach($posts as $post)
     <div class="post_area border w-75 m-auto p-3">
@@ -24,6 +25,29 @@
       </div>
     </div>
     @endforeach
+    @else
+    <p class="w-75 m-auto">{{$sub_category_name}}の投稿一覧 </p>
+    @foreach($posts as $post)
+    <div class="post_area border w-75 m-auto p-3">
+      <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
+      <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
+      <div class="post_bottom_area d-flex">
+        <div class="d-flex post_status">
+          <div class="mr-5">
+            <i class="fa fa-comment"></i><span class=""> {{\App\Models\Posts\Post::commentCounts($post->id)}}</span>
+          </div>
+          <div>
+            @if(Auth::user()->is_Like($post->id))
+            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{ \App\Models\Posts\Like::likeCounts($post->id) }}</span></p>
+            @else
+            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{ \App\Models\Posts\Like::likeCounts($post->id) }}</span></p>
+            @endif
+          </div>
+        </div>
+      </div>
+    </div>
+    @endforeach
+    @endif
   </div>
   <div class="other_area border w-25">
     <div class="border m-4">
@@ -40,10 +64,7 @@
         <!-- サブカテゴリー一覧の追加 -->
       @if(isset($category->subCategories))
         @foreach($category->subCategories as $sub_category)
-          <input type="submit" value="{{$sub_category->sub_category}}" name="sub_category_name" form="subCategoryRequest">
-          <input type="hidden" value="{{$sub_category->id}}" name="sub_category_id" form="subCategoryRequest">
-            <!-- サブカテゴリー -->
-  <form action="{{ route('sub.category.bulletin.board') }}" method="post" id="subCategoryRequest">@csrf</form>
+          <input type="submit" value="{{$sub_category->sub_category}}" name="category_word" form="postSearchRequest">
         @endforeach
       @endif
       @endforeach

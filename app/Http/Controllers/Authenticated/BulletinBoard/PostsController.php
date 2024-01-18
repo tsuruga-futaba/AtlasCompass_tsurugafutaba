@@ -25,14 +25,18 @@ class PostsController extends Controller
         $categories =  MainCategory::with('subCategories')->get();
         $like = new Like;
         $post_comment = new Post;
+        $sub_category_name = null;
         // $like_count=$like->likeCounts($post_id);
         if(!empty($request->keyword)){
             $posts = Post::with('user', 'postComments')
             ->where('post_title', 'like', '%'.$request->keyword.'%')
             ->orWhere('post', 'like', '%'.$request->keyword.'%')->get();
         }else if($request->category_word){
-            $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
+            $sub_category_name = $request->category_word;
+            // dd($sub_category);
+            $sub_category = SubCategory::where('sub_category', $sub_category_name)->first();
+            $post_id = PostSubCategory::where('sub_category_id', $sub_category->id)->pluck('post_id');
+            $posts = Post::with('user' ,'postComments')->whereIn('id', $post_id)->get();
         }else if($request->like_posts){
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
@@ -41,7 +45,7 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
             ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment','sub_category_name'));
     }
 
     public function postDetail($post_id){
@@ -118,18 +122,6 @@ class PostsController extends Controller
         return view('authenticated.bulletinboard.post_like', compact('posts', 'like'));
     }
 
-    //サブカテゴリーごとの投稿一覧
-    public function subCategoryBulletinBoard(Request $request){
-        // dd($request);
-        $sub_category = SubCategory::where('sub_category', $request->sub_category_name)->first();
-        // dd($sub_category);
-        $post_id = PostSubCategory::where('sub_category_id', $sub_category->id)->pluck('post_id');
-        // dd($post_id);
-        $posts = Post::with('user')->whereIn('id', $post_id)->get();
-        // dd($posts);
-        $like = new Like;
-        return view('authenticated.bulletinboard.post_subcategory',compact('sub_category','posts','like'));
-    }
 
     public function postLike(Request $request){
         $user_id = Auth::id();
