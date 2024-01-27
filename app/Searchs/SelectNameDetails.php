@@ -29,10 +29,16 @@ class SelectNameDetails implements DisplayUsers{
       ->whereIn('role', $role);
     })
     ->whereHas('subjects', function($q) use ($subjects){
-      $q->where('subjects.id', $subjects);
+      if(is_array($subjects)){
+        $q->whereIn('subjects.id', $subjects['id']);
+      }else{
+        $q->where('subjects.id', $subjects['id']);
+      }
     })
     ->orderBy('over_name_kana', $updown)->get();
     return $users;
   }
 
 }
+
+// $qとはなにか？
