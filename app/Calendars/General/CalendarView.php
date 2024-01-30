@@ -66,8 +66,10 @@ class CalendarView{
           }else{
             //未来の日付で予約している日。キャンセルボタンの表示
             $html[] = '<div class="delete-parts-modal-open">';
-            $html[] = '<button type="submit" class=" btn btn-danger p-0 w-75"  style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'" >'. $reservePart .'</button>';
+            $html[] = '<button type="submit" class=" btn btn-danger p-0 w-75"  style="font-size:12px" data-date="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'" >'. $reservePart .'</button>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+            $html[] = '<input type="hidden" name="date" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'" form="deleteParts">';
+            $html[] = '<input type="hidden" name="part" value="'. $reservePart .'" form="deleteParts">';
             $html[] = '</div>';
           }
         }else{
@@ -89,7 +91,7 @@ class CalendarView{
     $html[] = '</table>';
     $html[] = '</div>';
     $html[] = '<form action="/reserve/calendar" method="post" id="reserveParts">'.csrf_field().'</form>';
-    $html[] = '<form action="/delete/calendar" method="post" id="deleteParts">'.csrf_field().'</form>';
+    $html[] = '<form action='.route('deleteParts').'" method="post" id="deleteParts">'.csrf_field().'</form>';
 
     return implode('', $html);
   }
