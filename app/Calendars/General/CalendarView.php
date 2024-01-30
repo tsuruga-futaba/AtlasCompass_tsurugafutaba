@@ -1,6 +1,7 @@
 <?php
 namespace App\Calendars\General;
 
+use App\Models\Calendars\ReserveSettings;
 use Carbon\Carbon;
 use Auth;
 
