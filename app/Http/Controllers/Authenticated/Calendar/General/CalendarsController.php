@@ -25,7 +25,6 @@ class CalendarsController extends Controller
         DB::beginTransaction();
         try {
             $getPart = $request->getPart;
-            //予約が入っていない日があっても正常に予約できるように修正する。
             // dd($getPart);
             $getDate = $request->getData;
             // dd($getDate);
@@ -49,10 +48,12 @@ class CalendarsController extends Controller
             ['setting_reserve', $request->date],
             ['setting_part', $request->part],
         ])->first();
-        dd($reserve_setting_id);
+        // dd($user_id);
+        // dd($request);
+        // dd($reserve_setting_id);
         ReserveSettingUsers::where([
             ['user_id', $user_id],
-            ['reserve_setting_id', $reserve_setting_id],
+            ['reserve_setting_id', $reserve_setting_id->id],
         ])->delete();
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }

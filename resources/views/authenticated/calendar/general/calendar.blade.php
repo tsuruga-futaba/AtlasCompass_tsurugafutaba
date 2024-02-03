@@ -28,8 +28,8 @@
           <div class="w-50 m-auto edit-modal-btn d-flex">
             <a class="js-modal-close btn btn-danger d-inline-block delete-modal-hidden" href="">閉じる</a>
             <!-- 予約日（setting_reserve）と予約日（setting_part）のデータを送りたい -->
-            <input type="hidden" class="delete-modal-hidden modal-date" name="date" value="">
-            <input type="hidden" class="delete-modal-hidden modal-part" name="part" value="">
+            <input type="hidden" class="delete-modal-hidden modal-date" name="date" >
+            <input type="hidden" class="delete-modal-hidden modal-part" name="part" >
             <input type="submit" class="btn btn-primary d-block" value="キャンセル">
           </div>
         </div>

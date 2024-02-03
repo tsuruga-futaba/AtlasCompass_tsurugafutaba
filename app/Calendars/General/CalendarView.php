@@ -64,9 +64,9 @@ class CalendarView{
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">'.$reservePart.'</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }else{
-            //未来の日付で予約している日。キャンセルボタンの表示
+            //未来の日付で予約している日。キャンセルボタンの表示（モーダルオープン）
             $html[] = '<div class="delete-parts-modal-open">';
-            $html[] = '<button type="submit" class=" btn btn-danger p-0 w-75"  style="font-size:12px" data-date="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'" >'. $reservePart .'</button>';
+            $html[] = '<button type="submit" class=" btn btn-danger p-0 w-75"  style="font-size:12px" data-date="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'" data-part="'.$day->authReserveDate($day->everyDay())->first()->setting_part.'" >'. $reservePart .'</button>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
             $html[] = '<input type="hidden" name="date" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'" form="deleteParts">';
             $html[] = '<input type="hidden" name="part" value="'. $reservePart .'" form="deleteParts">';
