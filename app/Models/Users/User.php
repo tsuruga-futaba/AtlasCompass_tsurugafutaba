@@ -23,6 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'id',
         'over_name',
         'under_name',
         'over_name_kana',
