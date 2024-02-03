@@ -21,7 +21,7 @@ class UsersController extends Controller
         $gender = $request->sex;
         $role = $request->role;
         // 複数選択された科目を取得
-        $subjects = $request->subject;
+        $subjects = $request->subjects;
         // if (is_array($request->input('subjects')))
         // {
         //     $selectedSubjects = $request->subjects;
@@ -36,7 +36,7 @@ class UsersController extends Controller
         // {
         //     $subjects = null;
         // }
-        dd($subjects);
+        // dd($subjects);
         $userFactory = new SearchResultFactories();
         // dd($userFactory);
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
