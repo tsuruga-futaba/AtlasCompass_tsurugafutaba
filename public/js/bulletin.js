@@ -63,4 +63,9 @@ $(function () {
     return false;
   });
 
+  $('.main_categories').click(function () {
+    $(this).next('.sub_categories').slideToggle(300);
+    $(this).toggleClass("open", 300);
+  });
+
 });

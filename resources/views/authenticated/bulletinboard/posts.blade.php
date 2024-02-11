@@ -5,34 +5,52 @@
   <div class="post_view w-75 mt-5">
     @if(!isset($sub_category_name))
     <p class="w-75 m-auto">投稿一覧</p>
+    <div class="post_wrapper">
     @foreach($posts as $post)
-    <div class="post_area border w-75 m-auto p-3">
+    <div class="post_area border w-75 m-auto p-3 box_flame">
       <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
-      <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
+      <p  class="post_title"><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
+      <!-- サブカテゴリ・コメント・ハートは横並び -->
       <div class="post_bottom_area d-flex">
-        <div class="d-flex post_status">
-          <div class="mr-5">
-            <i class="fa fa-comment"></i><span class=""> {{\App\Models\Posts\Post::commentCounts($post->id)}}</span>
+        <!-- <div class="d-flex post_status"> -->
+          <!-- サブカテゴリー -->
+          @foreach($post->subCategories as $subCategory)
+          <div style="flex:2; justify-content:flex-end;">
+            <p class="btn bg-info sub_category_tag">{{$subCategory->sub_category}}</p>
           </div>
+          @endforeach
+          <!-- コメント -->
+          <div class="mr-5">
+            <i class="fa fa-comment"></i><span class="">  {{\App\Models\Posts\Post::commentCounts($post->id)}}</span>
+          </div>
+          <!-- いいね -->
           <div>
             @if(Auth::user()->is_Like($post->id))
-            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{ \App\Models\Posts\Like::likeCounts($post->id) }}</span></p>
+            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"> {{ \App\Models\Posts\Like::likeCounts($post->id) }}</span></p>
             @else
-            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{ \App\Models\Posts\Like::likeCounts($post->id) }}</span></p>
+            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"> {{ \App\Models\Posts\Like::likeCounts($post->id) }}</span></p>
             @endif
           </div>
-        </div>
+        <!-- </div> -->
       </div>
     </div>
     @endforeach
+    </div>
     @else
     <p class="w-75 m-auto">{{$sub_category_name}}の投稿一覧 </p>
+    <div class="post_wrapper">
     @foreach($posts as $post)
     <div class="post_area border w-75 m-auto p-3">
       <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
-      <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
+      <p class="post_title"><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
       <div class="post_bottom_area d-flex">
-        <div class="d-flex post_status">
+        <!-- <div class="d-flex post_status"> -->
+          <!-- サブカテゴリー -->
+          @foreach($post->subCategories as $subCategory)
+          <div style="flex: 2;">
+            <p class="btn bg-info sub_category_tag">{{$subCategory->sub_category}}</p>
+          </div>
+          @endforeach
           <div class="mr-5">
             <i class="fa fa-comment"></i><span class=""> {{\App\Models\Posts\Post::commentCounts($post->id)}}</span>
           </div>
@@ -43,30 +61,37 @@
             <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{ \App\Models\Posts\Like::likeCounts($post->id) }}</span></p>
             @endif
           </div>
-        </div>
+        <!-- </div> -->
       </div>
     </div>
     @endforeach
+    </div>
     @endif
   </div>
-  <div class="other_area border w-25">
-    <div class="border m-4">
-      <div class=""><a href="{{ route('post.input') }}">投稿</a></div>
-      <div class="">
-        <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
-        <input type="submit" value="検索" form="postSearchRequest">
+  <div class="other_area border w-25" style="border: none !important;">
+    <div class="border" style="border: none !important; margin:10%;">
+      <a class="btn bg-info post_btn btn_custom" href="{{ route('post.input') }}">投稿</a>
+      <div class="d-flex" style="width: 98%; margin-top:2%;">
+        <input type="text" style="margin-top:5%; flex:5;border-radius: 10px 0px 0px 10px; border:none; padding:1%" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
+        <input type="submit" value="検索" class="btn bg-info search_btn" form="postSearchRequest" style="flex:2;border-radius: 0px 10px 10px 0px !important;" >
       </div>
-      <input type="submit" name="like_posts" class="category_btn" value="いいねした投稿" form="postSearchRequest">
-      <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
+      <div class="d-flex" style="width: 98%; margin-top:2%; gap:2%;">
+        <input type="submit" name="like_posts" class="btn bg-info category_btn like_search btn_custom" value="いいねした投稿" form="postSearchRequest" style="flex: 4;">
+        <input type="submit" name="my_posts" class="btn bg-info category_btn my_post_search btn_custom" value="自分の投稿" form="postSearchRequest" style="flex: 4;">
+      </div>
+      <p style="margin-top: 2%;">カテゴリー検索</p>
       <ul>
       @foreach($categories as $category)
-        <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
-        <!-- サブカテゴリー一覧の追加 -->
-      @if(isset($category->subCategories))
-        @foreach($category->subCategories as $sub_category)
-          <input type="submit" value="{{$sub_category->sub_category}}" name="category_word" form="postSearchRequest">
-        @endforeach
-      @endif
+        <li class="main_categories category_border" category_id="{{ $category->id }}" style=" border-bottom: 1px solid !important;border-bottom-color: #6c757d !important; padding-left:3%;"><span>{{ $category->main_category }}<span></li>
+        <div class="sub_categories" >
+          <div class="sub_category_custom">
+          @if(isset($category->subCategories))
+            @foreach($category->subCategories as $sub_category)
+              <input class="sub_category category_border" type="submit" value="{{$sub_category->sub_category}}" name="category_word" form="postSearchRequest"  style=" border-bottom: 1px solid !important;border-bottom-color: #6c757d !important;">
+            @endforeach
+          @endif
+          </div>
+        </div>
       @endforeach
       </ul>
     </div>

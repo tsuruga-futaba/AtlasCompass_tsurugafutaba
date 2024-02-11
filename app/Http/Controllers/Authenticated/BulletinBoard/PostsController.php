@@ -21,7 +21,7 @@ use Auth;
 class PostsController extends Controller
 {
     public function show(Request $request){
-        $posts = Post::with('user', 'postComments')->get();
+        $posts = Post::with('user', 'postComments','subCategories')->get();
         $categories =  MainCategory::with('subCategories')->get();
         $like = new Like;
         $post_comment = new Post;
@@ -49,7 +49,7 @@ class PostsController extends Controller
     }
 
     public function postDetail($post_id){
-        $post = Post::with('user', 'postComments')->findOrFail($post_id);
+        $post = Post::with('user', 'postComments','subCategories')->findOrFail($post_id);
         return view('authenticated.bulletinboard.post_detail', compact('post'));
     }
 

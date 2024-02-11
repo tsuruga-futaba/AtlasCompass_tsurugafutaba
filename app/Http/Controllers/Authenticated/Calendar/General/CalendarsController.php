@@ -27,13 +27,15 @@ class CalendarsController extends Controller
             $getPart = $request->getPart;
             // dd($getPart);
             $getDate = $request->getData;
-            // dd($getDate);
-            $reserveDays = array_filter(array_combine($getDate, $getPart));
-            foreach ($reserveDays as $key => $value) {
+            // dd($getDate,$getPart);
+            // $getDateと$getPartがどちらも配列の場合
+                $reserveDays = array_filter(array_combine($getDate, $getPart));
+                foreach ($reserveDays as $key => $value) {
                 $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where('setting_part', $value)->first();
                 $reserve_settings->decrement('limit_users');
                 $reserve_settings->users()->attach(Auth::id());
             }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();

@@ -62,7 +62,7 @@ class CalendarView{
             // 過去の日付で予約していた日の表示。ここで参加した部を表示
             // $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">'.$reservePart.'</p>';
-            $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+            // $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }else{
             //未来の日付で予約している日。キャンセルボタンの表示（モーダルオープン）
             $html[] = '<div class="delete-parts-modal-open">';

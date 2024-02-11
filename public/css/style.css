@@ -8,7 +8,7 @@
 
 /* body */
 .all_content {
-  background: #ECF1F6;
+  background: #ECF1F6 !important;
 }
 
 ul,
@@ -16,10 +16,25 @@ li {
   list-style: none;
 }
 
+.a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.a:hover {
+  text-decoration: none;
+}
+
+.box_flame {
+  background-color: #FFF;
+  border-radius: 15px !important;
+  box-shadow: 3px 2px 1px 1px gainsboro
+}
+
 /* サイドバー */
 .sidebar {
-  width: 150px;
-  height: 100vh;
+  width: 200px;
+  /* height: 100%; */
   background-color: #03AAD2;
   font-weight: bold;
 }
@@ -31,6 +46,38 @@ li {
 .sidebar p a {
   color: #FFF;
 }
+
+.menu-icon {
+  width: 10%;
+  margin: 6%;
+}
+
+/* ログインページ */
+.atlas_logo {
+  position: absolute;
+  width: 36%;
+  right: 33%;
+  top: 15%;
+}
+
+.login-box.border.vh-50 {
+  width: 35%;
+  background-color: #FFF;
+  border-radius: 15px;
+  box-shadow: 3px 2px 1px 1px gainsboro
+}
+
+/* ユーザー登録画面 */
+.birthday-select select {
+  border: none;
+  border-bottom: 1px solid dodgerblue;
+}
+
+.register-box {
+  background-color: #FFF;
+  font-weight: bold;
+}
+
 
 /* トップページ */
 .user_status {
@@ -71,6 +118,7 @@ li {
 
 .adjust-table {
   width: 70% !important;
+  background: #FFF !important;
 }
 
 .adjust-table td {
@@ -111,12 +159,67 @@ li {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 60%;
+  z-index: 2;
 }
 
 /* 掲示板 */
+.post_wrapper {
+  overflow: scroll;
+  max-height: 80%;
+}
+
+.main_categories,
+.search_conditions {
+  position: relative;
+}
+
+/* 矢印 */
+.main_categories::after,
+.search_conditions::after {
+  border-right: solid 2px #494949;
+  border-top: solid 2px #494949;
+  content: "";
+  display: block;
+  height: 8px;
+  position: absolute;
+  right: 25px;
+  top: 38%;
+  transform: rotate(135deg);
+  transition: transform .3s ease-in-out, top .3s ease-in-out;
+  width: 8px;
+}
+
+.subject_edit_btn::after {
+  border-right: solid 2px #03AAD2;
+  border-top: solid 2px #03AAD2;
+  content: "";
+  display: block;
+  height: 8px;
+  position: absolute;
+  right: 1037px;
+  top: 41.5%;
+  transform: rotate(135deg);
+  transition: transform .3s ease-in-out, top .3s ease-in-out;
+  width: 8px;
+}
+
+.main_categories.open::after,
+.search_conditions.open::after {
+  top: 41%;
+  transform: rotate(-45deg);
+}
+
+.subject_edit_btn.open::after {
+  top: 42%;
+  transform: rotate(-45deg);
+}
+
+/* 矢印ここまで */
+
 .sub_categories {
   display: none;
 }
+
 
 .post_create_area {
   background: #FFF;
@@ -156,6 +259,87 @@ li {
   font-size: 12px;
   color: red;
 }
+
+
+.btn_custom {
+  border-radius: 10px !important;
+}
+
+.btn.bg-info.post_btn {
+  color: #fff !important;
+  background-color: #03aad2 !important;
+  text-decoration: none;
+  color: inherit;
+  width: 98%;
+}
+
+.btn.bg-info.post_btn a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.btn.bg-info.post_btn a:hover {
+  text-decoration: none;
+}
+
+.btn.bg-info.search_btn {
+  color: #fff;
+  background-color: #03aad2 !important;
+}
+
+.btn.bg-info.category_btn.like_search {
+  color: #fff;
+  background-color: #e38eab !important;
+}
+
+.btn.bg-info.category_btn.my_post_search {
+  color: #fff;
+  background-color: #ebbc5d !important;
+}
+
+.btn.bg-info.sub_category_tag {
+  color: #fff;
+  background-color: #03aad2 !important;
+}
+
+.post_title a {
+  color: black !important;
+  font-weight: bold;
+}
+
+.fa.fa-comment::before,
+.fas.fa-heart.like_btn::before {
+  color: #9E9E9E;
+}
+
+.fa.fa-comment,
+.fas.fa-heart.un_like_btn {
+  color: #E2254D;
+}
+
+.sub_category_custom {
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+.sub_category_custom input {
+  background-color: #ECF1F6;
+}
+
+.sub_category.category_border {
+  border: none;
+}
+
+.sub_category_custom .sub_category.category_border {
+  width: 86%;
+  margin-left: 5%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+
+
 
 /* 掲示板 詳細画面 */
 .contributor {
@@ -238,6 +422,10 @@ li {
   color: #FFF;
 }
 
+.category_flame {
+  margin-bottom: 5%;
+}
+
 .main_categories span,
 .sub_categories li input {
   list-style: none;
@@ -250,20 +438,29 @@ li {
   flex-wrap: wrap;
   width: 800px;
   margin: 10px auto;
-  height: 80vh;
+  height: 80%;
   overflow: scroll;
   padding: 10px;
-  background: #FFF;
+  /* background: #FFF; */
   border-radius: 5px;
+
 }
+
 
 .reserve_users_area span {
   font-size: 12px;
+  font-weight: bold;
 }
 
 .one_person {
-  width: 250px;
-  height: 250px;
+  margin: 1%;
+  width: 175px;
+  height: 200px;
+  padding: 2%;
+}
+
+.one_person_index {
+  color: #999;
 }
 
 .search_conditions span {
@@ -272,7 +469,7 @@ li {
 
 .search_conditions_inner {
   display: none;
-  background: #FFF;
+  /* background: #FFF; */
 }
 
 .subject_edit_btn {
@@ -283,4 +480,74 @@ li {
 
 .subject_inner {
   display: none;
+}
+
+.search_text {
+  border: none;
+  border-radius: 5px;
+  background-color: #e0e5e9 !important;
+  padding: 2%;
+}
+
+.search_conditions {
+  border-bottom: solid 1px;
+  width: 70%;
+}
+
+.search_index_text {
+  color: midnightblue;
+}
+
+.btn.bg-info.search_btn {
+  color: #fff !important;
+  background-color: #03aad2 !important;
+  text-decoration: none;
+  color: inherit;
+  width: 70%;
+  margin-top: 5%;
+}
+
+.reset_text {
+  color: #03aad2;
+  border: none;
+  width: 70%;
+  margin-top: 5%;
+}
+
+/* プロフィール */
+.edit_subject {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1%;
+}
+
+.subject_edit_btn {
+  color: #03AAD2;
+  font-size: 15px;
+}
+
+.border {
+  padding: 0% !important;
+}
+
+.date_text_title {
+  text-align: center;
+}
+
+/* 予約確認画面 */
+.reserve_users_table {
+  width: 100%;
+}
+
+.reserve_users_table tr th {
+  background-color: #03AAD2;
+}
+
+.reserve_users_table tr {
+  background-color: #e5f6fa;
+}
+
+.reserve_users_table tr:nth-child(odd) td {
+  background-color: #fff;
 }

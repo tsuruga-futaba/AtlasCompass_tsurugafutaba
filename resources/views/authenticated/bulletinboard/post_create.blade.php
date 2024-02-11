@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="post_create_container d-flex">
-  <div class="post_create_area border w-50 m-5 p-5">
+  <div class="post_create_area border w-50 m-5 p-5 box_flame">
     <div class="">
       <p class="mb-0">カテゴリー</p>
       <select class="w-100" form="postCreate" name="post_category_id">
@@ -38,28 +38,25 @@
   @if(Auth::user()->role == '4')
   @else
   <div class="w-25 ml-auto mr-auto">
-    <div class="category_area mt-5 p-5">
-        <!--バリデーションエラーメッセージ-->
-      @if($errors->any())
-      <div class="register_error">
-        <ul>
-        @foreach($errors->all() as $error)
-          <li>{{$error}}</li>
-        @endforeach
-        </ul>
-      </div>
-      @endif
-      <div class="">
+    <div class="category_area mt-5 p-5 box_flame">
+      <div class="category_flame">
+        @if($errors->first('main_category_name'))
+              <span class="error_message">{{ $errors->first('main_category_name') }}</span>
+            @endif
         <p class="m-0">メインカテゴリー</p>
-        <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest">
+        <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest" style="border: solid 1px;">
         <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="mainCategoryRequest">
       </div>
       <!-- サブカテゴリー追加 -->
-      <div class="">
+      <div class="category_flame">
+        @if($errors->first('sub_category_name'))
+              <span class="error_message">{{ $errors->first('sub_category_name') }}</span>
+            @endif
         <p class="m-0">サブカテゴリー</p>
-        <select class="w-100" name="main_category_id" form="subCategoryRequest">
+        <select class="w-100" name="main_category_id" form="subCategoryRequest" style="border: solid 1px;">.
+          <option value="none">-----</option>
           @foreach($main_categories as $main_category)
-          <option value="{{$main_category->id}}">{{$main_category->main_category}}</option>
+          <option value="{{$main_category->id}}" >{{$main_category->main_category}}</option>
           @endforeach
         </select>
         <input type="text" class="w-100" name="sub_category_name" form="subCategoryRequest">
