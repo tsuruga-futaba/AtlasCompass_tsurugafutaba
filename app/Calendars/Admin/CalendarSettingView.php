@@ -17,7 +17,7 @@ class CalendarSettingView{
   public function render(){
     $html = [];
     $html[] = '<div class="calendar text-center">';
-    $html[] = '<table class="table m-auto border adjust-table">';
+    $html[] = '<table class="table adjust-table mb-4 w-75" style="margin:0 auto;">';
     $html[] = '<thead>';
     $html[] = '<tr>';
     $html[] = '<th class="border">月</th>';
@@ -64,6 +64,9 @@ class CalendarSettingView{
     }
     $html[] = '</tbody>';
     $html[] = '</table>';
+    $html[] = '<div class="adjust-table-btn w-100 text-right">
+      <input type="submit" class="btn btn-primary mb-5" style="margin-right:5%;" value="登録" form="reserveSetting" onclick="return confirm('."登録してよろしいですか？".')">';
+    $html[] = '</div>';
     $html[] = '</div>';
     $html[] = '<form action="'.route('calendar.admin.update').'" method="post" id="reserveSetting">'.csrf_field().'</form>';
     return implode("", $html);

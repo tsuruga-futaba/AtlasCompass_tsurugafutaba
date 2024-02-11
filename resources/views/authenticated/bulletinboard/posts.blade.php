@@ -68,18 +68,18 @@
     </div>
     @endif
   </div>
-  <div class="other_area border w-25" style="border: none !important;">
-    <div class="border" style="border: none !important; margin:10%;">
+  <div class="other_area border" style="border: none !important; width:15vw;">
+    <div class="m-3 p-1 w-100" style="border: none !important; margin:10%;">
       <a class="btn bg-info post_btn btn_custom" href="{{ route('post.input') }}">投稿</a>
-      <div class="d-flex" style="width: 98%; margin-top:2%;">
-        <input type="text" style="margin-top:5%; flex:5;border-radius: 10px 0px 0px 10px; border:none; padding:1%" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
-        <input type="submit" value="検索" class="btn bg-info search_btn" form="postSearchRequest" style="flex:2;border-radius: 0px 10px 10px 0px !important;" >
+      <div class="d-flex" style="margin-top:2%;">
+        <input type="text" style="margin-top:5%; width:75%; border-radius: 10px 0px 0px 10px; border:none; padding:1%" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
+        <input type="submit" value="検索" class="btn bg-info search_btn" form="postSearchRequest" style="width:25%; border-radius: 0px 10px 10px 0px !important;" >
       </div>
-      <div class="d-flex" style="width: 98%; margin-top:2%; gap:2%;">
-        <input type="submit" name="like_posts" class="btn bg-info category_btn like_search btn_custom" value="いいねした投稿" form="postSearchRequest" style="flex: 4;">
-        <input type="submit" name="my_posts" class="btn bg-info category_btn my_post_search btn_custom" value="自分の投稿" form="postSearchRequest" style="flex: 4;">
+      <div class="d-flex" style="margin-top:2%; gap:2%;">
+        <input type="submit" name="like_posts" class="btn bg-info category_btn like_search btn_custom" value="いいねした投稿" form="postSearchRequest" style="width:48%; ">
+        <input type="submit" name="my_posts" class="btn bg-info category_btn my_post_search btn_custom" value="自分の投稿" form="postSearchRequest" style="width:48%; ">
       </div>
-      <p style="margin-top: 2%;">カテゴリー検索</p>
+      <p class="mt-4">カテゴリー検索</p>
       <ul>
       @foreach($categories as $category)
         <li class="main_categories category_border" category_id="{{ $category->id }}" style=" border-bottom: 1px solid !important;border-bottom-color: #6c757d !important; padding-left:3%;"><span>{{ $category->main_category }}<span></li>

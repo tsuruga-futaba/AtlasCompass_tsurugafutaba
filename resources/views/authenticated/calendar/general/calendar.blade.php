@@ -1,17 +1,17 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<div class="vh-100 " style="background:#ECF1F6;">
+<div class="" style="background:#ECF1F6;">
   <div class="border pb-5" style="border-radius:5px; border:none !important; margin:1% 3%;">
-    <div class="w-75 m-auto border box_flame " style="border-radius:5px; background: #FFF !important">
+    <div class=" m-auto border box_flame " style="border-radius:5px; background: #FFF !important">
 
       <p class="text-center date_text_title">{{ $calendar->getTitle() }}</p>
       <div class="">
         {!! $calendar->render() !!}
       </div>
-    </div>
-    <div class="text-right w-75" style="margin-left: 11%;">
+      <div class="text-right m-3" style="margin-left: 11%;">
       <input type="submit" class="btn btn-primary" value="予約する" form="reserveParts" style="margin-top: 2%;">
+    </div>
     </div>
   </div>
 </div>

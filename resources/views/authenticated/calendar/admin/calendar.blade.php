@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<div class="w-75 m-auto box_flame" style="margin: 3% 6% !important; height:91% !important;">
+<div class="box_flame m-5 p-4 w-75">
   <div class="w-100">
     <p class="date_text_title">{{ $calendar->getTitle() }}</p>
     <p>{!! $calendar->render() !!}</p>

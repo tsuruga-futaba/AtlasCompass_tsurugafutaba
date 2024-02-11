@@ -5,7 +5,7 @@
 <div class="search_content w-100 d-flex ">
   <div class="reserve_users_area">
     @foreach($users as $user)
-    <div class="border one_person box_flame">
+    <div class="border one_person box_flame p-3">
       <div>
         <span class="one_person_index">ID : </span><span>{{ $user->id }}</span>
       </div>
@@ -55,7 +55,7 @@
     </div>
     @endforeach
   </div>
-  <div class="search_area w-25">
+  <div class="search_area" style="width: 25vw;">
     <div class="">
       <p class="search_index_text" style="margin-top: 5%;">検索</p>
       <div>

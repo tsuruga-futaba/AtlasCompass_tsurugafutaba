@@ -34,7 +34,7 @@ li {
 /* サイドバー */
 .sidebar {
   width: 200px;
-  /* height: 100%; */
+  min-height: 100vh;
   background-color: #03AAD2;
   font-weight: bold;
 }
@@ -163,10 +163,10 @@ li {
 }
 
 /* 掲示板 */
-.post_wrapper {
+/* .post_wrapper {
   overflow: scroll;
   max-height: 80%;
-}
+} */
 
 .main_categories,
 .search_conditions {
@@ -271,6 +271,7 @@ li {
   text-decoration: none;
   color: inherit;
   width: 98%;
+  font-size: 1vw !important;
 }
 
 .btn.bg-info.post_btn a {
@@ -290,11 +291,13 @@ li {
 .btn.bg-info.category_btn.like_search {
   color: #fff;
   background-color: #e38eab !important;
+  font-size: 0.8vw !important;
 }
 
 .btn.bg-info.category_btn.my_post_search {
   color: #fff;
   background-color: #ebbc5d !important;
+  font-size: 0.8vw !important;
 }
 
 .btn.bg-info.sub_category_tag {
@@ -325,6 +328,7 @@ li {
 
 .sub_category_custom input {
   background-color: #ECF1F6;
+  text-align: left;
 }
 
 .sub_category.category_border {
@@ -436,9 +440,9 @@ li {
 .reserve_users_area {
   display: flex;
   flex-wrap: wrap;
-  width: 800px;
+  width: 80%;
   margin: 10px auto;
-  height: 80%;
+  /* height: 80%; */
   overflow: scroll;
   padding: 10px;
   /* background: #FFF; */
@@ -505,6 +509,7 @@ li {
   color: inherit;
   width: 70%;
   margin-top: 5%;
+  font-size: 1vw !important;
 }
 
 .reset_text {
@@ -545,9 +550,9 @@ li {
 }
 
 .reserve_users_table tr {
-  background-color: #e5f6fa;
+  background-color: #fff;
 }
 
 .reserve_users_table tr:nth-child(odd) td {
-  background-color: #fff;
+  background-color: #e5f6fa;
 }

@@ -14,46 +14,46 @@
 </head>
 <body class="all_content">
   <form action="{{ route('registerPost') }}" method="POST">
-    <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
-      <div class="vh-75 border p-3 register-box box_flame">
+    <div class="w-100 d-flex mt-5 mb-5" style="align-items:center; justify-content:center;">
+      <div class="border p-3 register-box box_flame">
         <div class="register_form">
           <div class="d-flex mt-3" style="justify-content:center;">
-            <div class="" style="width:140px">
+            <div class="" style="flex:1;">
             @if($errors->first('over_name'))
               <span class="error_message">{{ $errors->first('over_name') }}</span>
             @endif
               <label class="d-block m-0" style="font-size:13px">姓</label>
               <div class="border-bottom border-primary" style="width:140px;">
-                <input type="text" style="width:140px;" class="border-0 over_name" name="over_name">
+                <input type="text" class="border-0 over_name" name="over_name" style="width:140px;">
               </div>
             </div>
-            <div class="" style="width:140px">
+            <div class="" style="flex:1;">
             @if($errors->first('under_name'))
             <span class="error_message">{{ $errors->first('under_name') }}</span>
             @endif
               <label class=" d-block m-0" style="font-size:13px">名</label>
               <div class="border-bottom border-primary" style="width:140px;">
-                <input type="text" style="width:140px;" class="border-0 under_name" name="under_name">
+                <input type="text" class="border-0 under_name" name="under_name" style="width:140px;">
               </div>
             </div>
           </div>
           <div class="d-flex mt-3" style="justify-content:center;">
-            <div class="" style="width:140px">
+            <div class="" style="flex:1;">
             @if($errors->first('over_name_kana'))
             <span class="error_message">{{ $errors->first('over_name_kana') }}</span>
             @endif
               <label class="d-block m-0" style="font-size:13px">セイ</label>
               <div class="border-bottom border-primary" style="width:140px;">
-                <input type="text" style="width:140px;" class="border-0 over_name_kana" name="over_name_kana">
+                <input type="text" class="border-0 over_name_kana" name="over_name_kana" style="width:140px;">
               </div>
             </div>
-            <div class="" style="width:140px">
+            <div class="" style="flex:1;">
             @if($errors->first('under_name_kana'))
             <span class="error_message">{{ $errors->first('under_name_kana') }}</span>
             @endif
               <label class="d-block m-0" style="font-size:13px">メイ</label>
-              <div class="border-bottom border-primary" style="width:140px;">
-                <input type="text" style="width:140px;" class="border-0 under_name_kana" name="under_name_kana">
+              <div class="border-bottom border-primary" style="width:140px;" >
+                <input type="text" class="border-0 under_name_kana" name="under_name_kana" style="width:140px;">
               </div>
             </div>
           </div>
